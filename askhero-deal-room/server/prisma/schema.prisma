@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+ id            String   @id @default(uuid())
+ email         String   @unique
+ passwordHash  String
+ role          Role     @default(BUYER)
+ name          String
+ phone         String?
+ createdAt     DateTime @default(now())
+ deals         Deal[]   @relation("BuyerDeals")
+ agentDeals    Deal[]   @relation("AgentDeals")
+ messages      Message[]
+ preQualLimit  Int?
+ preQualRate   Float?
+}
+
+enum Role {
+ BUYER
+ AGENT
+ ADMIN
+}
+
+model Property {
+ id              String   @id @default(uuid())
+ address         String
+ city            String
+ state           String
+ zip             String
+ listPrice       Int
+ heroScore       Int
+ valueGrade      String
+ negotiationGrade String
+ schoolRating    String
+ insuranceRisk   String
+ daysOnMarket    Int
+ comparableValue Int
+ mlsId           String?  @unique
+ deals           Deal[]
+ createdAt       DateTime @default(now())
+}
+
+model Deal {
+ id            String     @id @default(uuid())
+ propertyId    String
+ property      Property   @relation(fields: [propertyId], references: [id])
+ buyerId       String
+ buyer         User       @relation("BuyerDeals", fields: [buyerId], references: [id])
+ agentId       String?
+ agent         User?      @relation("AgentDeals", fields: [agentId], references: [id])
+ status        DealStatus @default(OFFER_BUILDING)
+ agreedPrice   Int?
+ closingDate   DateTime?
+ createdAt     DateTime   @default(now())
+ updatedAt     DateTime   @updatedAt
+ offers        Offer[]
+ contingencies Contingency[]
+ checklistItems ChecklistItem[]
+ messages      Message[]
+}
+
+enum DealStatus {
+ OFFER_BUILDING
+ NEGOTIATING
+ OFFER_ACCEPTED
+ INSPECTION
+ APPRAISAL
+ FINANCING
+ CLOSING
+ CLOSED
+ CANCELLED
+}
+
+model Offer {
+ id          String      @id @default(uuid())
+ dealId      String
+ deal        Deal        @relation(fields: [dealId], references: [id])
+ amount      Int
+ submittedBy OfferParty
+ status      OfferStatus @default(PENDING)
+ aiAnalysis  String?
+ createdAt   DateTime    @default(now())
+}
+
+enum OfferParty {
+ BUYER
+ SELLER
+}
+
+enum OfferStatus {
+ PENDING
+ ACCEPTED
+ COUNTERED
+ REJECTED
+}
+
+model Contingency {
+ id         String  @id @default(uuid())
+ dealId     String
+ deal       Deal    @relation(fields: [dealId], references: [id])
+ type       String
+ enabled    Boolean @default(true)
+ details    String?
+}
+
+model ChecklistItem {
+ id          String   @id @default(uuid())
+ dealId      String
+ deal        Deal     @relation(fields: [dealId], references: [id])
+ label       String
+ dueDate     DateTime?
+ completed   Boolean  @default(false)
+ priority    String   @default("normal")
+}
+
+model Message {
+ id        String   @id @default(uuid())
+ dealId    String
+ deal      Deal     @relation(fields: [dealId], references: [id])
+ senderId  String
+ sender    User     @relation(fields: [senderId], references: [id])
+ body      String
+ createdAt DateTime @default(now())
+}

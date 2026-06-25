@@ -1,0 +1,51 @@
+{
+  "name": "askhero-deal-room",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "vite --host 0.0.0.0 --port 5173 client",
+    "build": "vite build client",
+    "server": "node server/index.js",
+    "prisma:migrate": "prisma migrate dev --schema server/prisma/schema.prisma",
+    "prisma:seed": "node server/prisma/seed.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@aws-sdk/client-s3": "^3.716.0",
+    "@prisma/client": "^6.1.0",
+    "@tailwindcss/forms": "^0.5.9",
+    "axios": "^1.7.9",
+    "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.5",
+    "date-fns": "^4.1.0",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.0",
+    "helmet": "^8.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.468.0",
+    "morgan": "^1.10.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "^6.28.1",
+    "resend": "^4.0.1",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
+    "twilio": "^5.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "concurrently": "^9.1.0",
+    "postcss": "8.5.15",
+    "prisma": "^6.1.0",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.0.5"
+  },
+  "prisma": {
+    "seed": "node server/prisma/seed.js"
+  }
+}

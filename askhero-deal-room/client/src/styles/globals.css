@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0c0f;
+  --bg-card: #111418;
+  --bg-dark: #0d1014;
+  --border-default: #1e2228;
+  --gold: #c8a96e;
+  --gold-light: #e8c97a;
+  --success: #4ade80;
+  --info: #60a5fa;
+  --text-primary: #e8e4dc;
+  --text-muted: #666666;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: Arial, sans-serif;
+}
+
+.font-display {
+  font-family: "Fraunces", serif;
+}
+
+.font-label {
+  font-family: "DM Mono", monospace;
+}
+
+.label {
+  font-family: "DM Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.card {
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+  border-radius: 8px;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid var(--border-default);
+  background: #0b0e12;
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.btn {
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: #0a0c0f;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-weight: 700;
+}
+
+.btn-ghost {
+  border: 1px solid var(--border-default);
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 11px 14px;
+}

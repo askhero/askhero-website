@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 217 63% 7%;
+    --foreground: 0 0% 100%;
+    --card: 216 49% 11%;
+    --card-foreground: 0 0% 100%;
+    --popover: 216 49% 11%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 40 62% 48%;
+    --primary-foreground: 218 70% 8%;
+    --secondary: 215 38% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 216 34% 16%;
+    --muted-foreground: 216 16% 74%;
+    --accent: 40 62% 48%;
+    --accent-foreground: 218 70% 8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 33% 21%;
+    --input: 214 33% 21%;
+    --ring: 40 62% 48%;
+    --radius: 0.5rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .bg-askhero-radial {
+    background:
+      radial-gradient(circle at 68% 38%, rgba(217, 180, 92, 0.13), transparent 28%),
+      radial-gradient(circle at 28% 42%, rgba(59, 130, 246, 0.05), transparent 30%),
+      linear-gradient(180deg, #030712 0%, #050914 48%, #030712 100%);
+  }
+}
+
+.hero-gold-glow {
+  box-shadow:
+    0 0 120px rgba(217, 180, 92, 0.18),
+    0 0 240px rgba(217, 180, 92, 0.10);
+}
+
+.hero-card-shadow {
+  box-shadow:
+    0 30px 120px rgba(0, 0, 0, 0.58),
+    0 0 90px rgba(217, 180, 92, 0.10);
+}
+
