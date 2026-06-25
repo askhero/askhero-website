@@ -3,14 +3,7 @@ import { Home } from "lucide-react";
 import { LogoutButton } from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 import { getAskHeroSession } from "@/lib/auth/session";
-
-const navItems = [
-  ["Search", "/search"],
-  ["Hero Score", "/hero-score"],
-  ["For Realtors", "/for-realtors"],
-  ["For Sellers", "/for-sellers"],
-  ["Find an Agent", "/find-agent"],
-];
+import { NavLinks } from "@/components/nav-links";
 
 export async function SiteHeader() {
   const session = await getAskHeroSession();
@@ -24,13 +17,7 @@ export async function SiteHeader() {
           </span>
           <span className="text-lg font-semibold tracking-normal">AskHero</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm text-white/68 lg:flex">
-          {navItems.map(([label, href]) => (
-            <Link key={href} className="transition hover:text-white" href={href}>
-              {label}
-            </Link>
-          ))}
-        </nav>
+        <NavLinks />
         {session ? (
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
