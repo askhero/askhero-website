@@ -96,14 +96,13 @@ export function LoginForm({ initialMode = "login" }: { initialMode?: "login" | "
       </div>
       <div className="space-y-2">
         <Label>Role</Label>
-        <Select defaultValue="buyer" onValueChange={setRole}>
+        <Select onValueChange={setRole}>
           <SelectTrigger>
-            <SelectValue placeholder="Buyer" />
+            <SelectValue placeholder="Select your role…" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="buyer">Buyer</SelectItem>
-            <SelectItem value="seller">Seller</SelectItem>
-            <SelectItem value="realtor">Realtor</SelectItem>
+            <SelectItem value="realtor">Realtor / Agent</SelectItem>
           </SelectContent>
         </Select>
       </div>
