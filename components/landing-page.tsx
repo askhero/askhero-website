@@ -245,7 +245,7 @@ export function LandingPage() {
                     </div>
                     <div>
                       <p className="text-base font-extrabold text-white">Hero Analysis Preview</p>
-                      <p className="mt-0.5 text-sm text-white/58">Placeholder labels only. Real scores appear with approved listing data.</p>
+                      <p className="mt-0.5 text-sm text-white/58">Here&apos;s what Hero analyzes for every home.</p>
                     </div>
                   </div>
                   <span className="rounded-full border border-gold-300/25 bg-gold-400/8 px-3 py-1 text-xs font-bold text-gold-200">

@@ -18,7 +18,7 @@ export default function BuyerDashboardPage() {
       <PageHero
         eyebrow="Buyer Dashboard"
         title="Your saved homes, searches, comparisons, and inquiries."
-        description="This dashboard is wired for Supabase Auth and row-level security. It shows an honest empty state until a buyer creates saved homes, saved searches, comparisons, or leads."
+        description="Your activity will appear here once you start searching."
       />
       <section className="mx-auto grid max-w-7xl gap-4 px-4 pb-18 sm:px-6 md:grid-cols-4 lg:px-8">
         {[
