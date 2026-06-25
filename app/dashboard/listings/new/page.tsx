@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export const metadata = createPageMetadata({
   path: "/dashboard/listings/new",
@@ -13,6 +15,16 @@ export const metadata = createPageMetadata({
 });
 
 export default async function NewListingPage() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data: { session: supabaseSession } } = await supabase.auth.getSession();
+  if (!supabaseSession) {
+    redirect("/signup?next=/dashboard/listings/new");
+  }
+  const role = supabaseSession.user.user_metadata?.role as string | undefined;
+  if (role !== "realtor" && role !== "agent") {
+    redirect("/for-sellers");
+  }
+
   const session = await getAskHeroSession();
   if (!session) {
     redirect("/signup?next=/dashboard/listings/new");
