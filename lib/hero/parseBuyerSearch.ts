@@ -44,11 +44,24 @@ export function parseBuyerSearch(query: string): BuyerProfile {
   };
 }
 
-function parseIncome(value: string) {
-  const incomeContext = value.match(/(?:income|earn|salary|household)\D{0,24}(\$?\d[\d,]*(?:\.\d+)?\s*(?:k|m)?)/i);
-  const money = incomeContext?.[1] ?? value.match(/\$\s*\d[\d,]*(?:\.\d+)?\s*(?:k|m)?/i)?.[0];
-  if (!money) return null;
-  return parseMoney(money);
+function parseIncome(value: string): number | null {
+  // Pattern 1: number BEFORE income keyword — "200k income", "200k a year", "$85,000/year"
+  const beforeKeyword = value.match(
+    /\$?(\d[\d,]*(?:\.\d+)?)\s*(k|m|thousand|million)?\s*(?:income|salary|a\s+year|\/year|per\s+year|annually)/i,
+  );
+  if (beforeKeyword) return parseMoney(`${beforeKeyword[1].replace(/,/g, "")}${beforeKeyword[2] ?? ""}`);
+
+  // Pattern 2: income keyword BEFORE number — "income of 200k", "making 200k", "earn 150k"
+  const afterKeyword = value.match(
+    /(?:income|salary|earn(?:ing|s)?|mak(?:ing|es?)|household(?:\s+income)?|annual(?:\s+income)?)\s+(?:of\s+)?\$?(\d[\d,]*(?:\.\d+)?)\s*(k|m|thousand|million)?/i,
+  );
+  if (afterKeyword) return parseMoney(`${afterKeyword[1].replace(/,/g, "")}${afterKeyword[2] ?? ""}`);
+
+  // Pattern 3: bare $ amount not already matched — "$200k", "$200,000"
+  const dollarAmount = value.match(/\$\s*(\d[\d,]*(?:\.\d+)?)\s*(k|m|thousand|million)?/i);
+  if (dollarAmount) return parseMoney(`${dollarAmount[1].replace(/,/g, "")}${dollarAmount[2] ?? ""}`);
+
+  return null;
 }
 
 function parseMoney(value: string) {
@@ -92,7 +105,8 @@ function parseLocation(query: string) {
     if (lower.includes(key)) return market;
   }
 
-  return { city: null, state: null };
+  // Default to Charlotte — the only active AskHero market
+  return { city: "Charlotte", state: "NC" };
 }
 
 function parsePriorities(value: string) {
