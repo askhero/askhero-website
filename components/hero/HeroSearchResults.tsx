@@ -35,6 +35,9 @@ export function HeroSearchResults({ results, hasSearched }: { results: RankedHer
           <Button asChild variant="outline" className="rounded-xl font-bold">
             <Link href="/search">Try Another Search</Link>
           </Button>
+          <Button asChild variant="outline" className="rounded-xl font-bold">
+            <Link href="/listings">Browse all listings</Link>
+          </Button>
         </div>
       </section>
     );
