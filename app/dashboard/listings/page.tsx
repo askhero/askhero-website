@@ -15,7 +15,7 @@ export const metadata = createPageMetadata({
 
 export default async function ListingsDashboardPage() {
   const session = await getAskHeroSession();
-  if (!session) redirect("/signup?next=/dashboard/listings");
+  if (!session) redirect("/login?next=/dashboard/listings");
 
   return (
     <PageShell>

@@ -70,5 +70,13 @@ function hmac(payload: string) {
 }
 
 function sessionSecret() {
-  return process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.ADMIN_PASSWORD || "askhero-dev-session";
+  // SESSION_SECRET is the dedicated production secret. Falls back to
+  // SUPABASE_SERVICE_ROLE_KEY (previously used) so existing cookies stay valid,
+  // then to a dev-only default. Set SESSION_SECRET in production env vars.
+  return (
+    process.env.SESSION_SECRET ||
+    process.env.SUPABASE_SERVICE_ROLE_KEY ||
+    process.env.ADMIN_PASSWORD ||
+    "askhero-dev-session"
+  );
 }

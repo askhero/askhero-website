@@ -11,7 +11,7 @@ export default async function ListingEditDashboardPage({
 }) {
   const session = await getAskHeroSession();
   const { id } = await params;
-  if (!session) redirect(`/signup?next=/dashboard/listings/${id}/edit`);
+  if (!session) redirect(`/login?next=/dashboard/listings/${id}/edit`);
 
   return (
     <PageShell>
