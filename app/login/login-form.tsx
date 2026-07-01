@@ -60,6 +60,14 @@ export function LoginForm({ initialMode = "login" }: { initialMode?: "login" | "
         body: JSON.stringify({ email, role, fullName }),
       });
 
+      if (mode === "register") {
+        void fetch("/api/email/welcome", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, name: fullName, role }),
+        });
+      }
+
       window.location.href = searchParams.get("next") || (role === "realtor" || role === "seller" ? "/dashboard/listings/new" : "/dashboard");
     } catch (error) {
       setMessage(

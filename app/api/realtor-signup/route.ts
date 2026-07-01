@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { setAskHeroSession } from "@/lib/auth/session";
 import { sendNotificationEmail } from "@/lib/email";
+import { sendMail } from "@/lib/email/mailer";
+import { realtorWelcomeEmail } from "@/lib/email/templates/realtor-welcome";
 import { getClientKey, rateLimit } from "@/lib/rate-limit";
 import { createSupabaseAdminClient } from "@/lib/supabase/admin";
 import { cleanOptional, realtorSchema } from "@/lib/validation";
@@ -112,6 +114,10 @@ export async function POST(request: Request) {
         `Market: ${signup.market}`,
       ],
     });
+
+    sendMail({ to: email, ...realtorWelcomeEmail(signup.name) }).catch((err) =>
+      console.error("[welcome-email realtor]", err),
+    );
 
     await setAskHeroSession({ email, role: "realtor", fullName: signup.name });
 
