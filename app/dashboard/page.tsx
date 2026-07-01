@@ -11,10 +11,15 @@ import Link from "next/link";
 import { Heart, History, Search, Scale, Send } from "lucide-react";
 import { PageHero, PageShell } from "@/components/site-shell";
 import { Button } from "@/components/ui/button";
+import { SuccessBanner } from "@/app/dashboard/success-banner";
 
-export default function BuyerDashboardPage() {
+type DashboardPageProps = { searchParams?: Promise<{ message?: string }> };
+
+export default async function BuyerDashboardPage({ searchParams }: DashboardPageProps) {
+  const params = await searchParams;
   return (
     <PageShell>
+      {params?.message ? <SuccessBanner messageKey={params.message} /> : null}
       <PageHero
         eyebrow="Buyer Dashboard"
         title="Your saved homes, searches, comparisons, and inquiries."

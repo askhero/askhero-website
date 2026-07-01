@@ -99,6 +99,7 @@ export function LoginForm({ initialMode = "login" }: { initialMode?: "login" | "
       <div className="space-y-2">
         <Label htmlFor="email">Email</Label>
         <Input id="email" name="email" type="email" autoComplete="email" required />
+        <p className="text-xs text-white/42">Your username is your email address.</p>
       </div>
       <div className="space-y-2">
         <div className="flex items-center justify-between">
