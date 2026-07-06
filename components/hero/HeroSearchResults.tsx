@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { HeroListingCard } from "@/components/hero/HeroListingCard";
 import type { RankedHeroListing } from "@/lib/hero/types";
 
-export function HeroSearchResults({ results, hasSearched }: { results: RankedHeroListing[]; hasSearched: boolean }) {
+export function HeroSearchResults({ results, hasSearched, hasLocation }: { results: RankedHeroListing[]; hasSearched: boolean; hasLocation?: boolean }) {
   if (!hasSearched) {
     return (
       <section className="rounded-2xl border border-white/10 bg-white/[0.035] p-8 text-center backdrop-blur-xl">
@@ -47,10 +47,16 @@ export function HeroSearchResults({ results, hasSearched }: { results: RankedHer
     <section>
       <div className="mb-5 flex flex-col gap-3 rounded-2xl border border-white/10 bg-white/[0.035] p-5 backdrop-blur-xl sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm uppercase tracking-[0.2em] text-gold-200/80">Ranked approved listings</p>
-          <h2 className="mt-2 text-3xl font-bold text-white">Hero-ranked matches</h2>
+          <p className="text-sm uppercase tracking-[0.2em] text-gold-200/80">
+            {hasLocation ? "Nearby approved listings" : "Ranked approved listings"}
+          </p>
+          <h2 className="mt-2 text-3xl font-bold text-white">
+            {hasLocation ? "Homes near you" : "Hero-ranked matches"}
+          </h2>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-white/52">
-            Results are sorted by Hero Fit Score first, then Hero Score. AskHero highlights available facts and missing data so you can see why a home may or may not be worth deeper review.
+            {hasLocation
+              ? "Sorted by distance from your location, then by Hero Fit Score."
+              : "Results are sorted by Hero Fit Score first, then Hero Score. AskHero highlights available facts and missing data so you can see why a home may or may not be worth deeper review."}
           </p>
         </div>
         <p className="text-sm font-semibold text-white/48">{results.length} approved match{results.length === 1 ? "" : "es"}</p>

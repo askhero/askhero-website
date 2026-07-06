@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroIntentIndicators } from "@/components/hero/HeroIntentIndicators";
@@ -16,6 +17,9 @@ const samples = [
 export function HeroSearchBox({ defaultQuery }: { defaultQuery?: string }) {
   const [query, setQuery] = useState(defaultQuery ?? "");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     if (!query.trim()) {
@@ -33,6 +37,8 @@ export function HeroSearchBox({ defaultQuery }: { defaultQuery?: string }) {
         onSubmit={handleSubmit}
         className="group rounded-[2rem] border border-white/12 bg-white/[0.055] p-2 shadow-[0_30px_120px_rgba(0,0,0,0.65)] backdrop-blur-2xl transition focus-within:border-gold-300/65 focus-within:shadow-[0_0_0_1px_rgba(217,180,92,0.35),0_0_90px_rgba(217,180,92,0.16)]"
       >
+        {lat && <input type="hidden" name="lat" value={lat} />}
+        {lng && <input type="hidden" name="lng" value={lng} />}
         <div className="rounded-[1.55rem] border border-white/8 bg-[#070a10]/90 p-4 sm:p-5">
           <div className="flex items-start gap-3">
             <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-gold-400 text-[#030303] shadow-[0_0_40px_rgba(217,180,92,0.24)]">

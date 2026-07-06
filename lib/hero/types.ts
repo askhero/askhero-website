@@ -44,6 +44,9 @@ export type HeroListing = {
   listing_agent_email: string | null;
   listing_agent_phone: string | null;
   brokerage_name: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
+  distance?: number;
   hero_scores?:
     | {
         total_score: number | null;
@@ -75,4 +78,5 @@ export type RankedHeroListing = {
   heroScore: HeroScoreDetails;
   fitScore: HeroFitScoreDetails;
   summary: string;
+  distance?: number;
 };

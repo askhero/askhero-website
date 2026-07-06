@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { ArrowRight, AlertTriangle, Mail, MapPin, ShieldQuestion, TrendingUp } from "lucide-react";
+import { ArrowRight, AlertTriangle, Mail, MapPin, Navigation, ShieldQuestion, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { HeroFloodBadge } from "@/components/hero/HeroFloodSignal";
 import { HeroScoreBadge } from "@/components/hero/HeroScoreBadge";
@@ -8,7 +8,7 @@ import type { HeroFloodSignal as HeroFloodSignalValue } from "@/lib/hero/provide
 import type { RankedHeroListing } from "@/lib/hero/types";
 
 export function HeroListingCard({ result }: { result: RankedHeroListing }) {
-  const { listing, heroScore, fitScore, summary } = result;
+  const { listing, heroScore, fitScore, summary, distance } = result;
   const address = [listing.address_line_1, listing.city, listing.state].filter(Boolean).join(", ") || [listing.city, listing.state].filter(Boolean).join(", ") || "Approved listing";
   const contactHref = listing.listing_agent_email
     ? `mailto:${listing.listing_agent_email}?subject=${encodeURIComponent("AskHero buyer inquiry")}`
@@ -20,10 +20,18 @@ export function HeroListingCard({ result }: { result: RankedHeroListing }) {
     <article className="rounded-3xl border border-white/10 bg-white/[0.045] p-5 shadow-[0_24px_80px_rgba(0,0,0,0.38)] backdrop-blur-xl transition hover:border-gold-300/35">
       <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="min-w-0">
-          <p className="flex items-center gap-2 text-sm text-white/48">
-            <MapPin className="h-4 w-4 text-gold-300" />
-            {listing.status || "approved"}
-          </p>
+          <div className="flex flex-wrap items-center gap-2">
+            <p className="flex items-center gap-1.5 text-sm text-white/48">
+              <MapPin className="h-4 w-4 text-gold-300" />
+              {listing.status || "approved"}
+            </p>
+            {distance !== undefined && (
+              <span className="inline-flex items-center gap-1 rounded-full border border-[#c9a84c]/30 bg-[#c9a84c]/8 px-2.5 py-0.5 text-xs font-semibold text-[#c9a84c]">
+                <Navigation className="h-3 w-3" />
+                {distance < 1 ? `${(distance * 5280).toFixed(0)} ft` : `${distance.toFixed(1)} mi`} away
+              </span>
+            )}
+          </div>
           <h3 className="mt-2 text-xl font-bold leading-tight text-white">{address}</h3>
           <p className="mt-2 text-2xl font-extrabold text-gold-200">{formatMoney(listing.price)}</p>
         </div>
