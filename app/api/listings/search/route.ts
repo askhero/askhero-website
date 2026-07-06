@@ -17,6 +17,7 @@ export async function GET(request: Request) {
     .from("listings")
     .select("*, hero_scores(total_score,letter_grade,component_scores)")
     .eq("approval_status", "approved")
+    .eq("status", "active")
     .limit(hasLocation ? 200 : 50); // fetch more when filtering by distance
 
   // Skip city filter when doing proximity search — distance does the narrowing
