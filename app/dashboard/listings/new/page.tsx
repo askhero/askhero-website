@@ -1,15 +1,15 @@
 import { createPageMetadata } from "@/lib/seo";
 import { canCreateListing, getAskHeroSession } from "@/lib/auth/session";
-import { HeroListingBuilder } from "@/components/hero/listing-builder/HeroListingBuilder";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { NewListingTabs } from "@/app/dashboard/listings/NewListingTabs";
 
 export const metadata = createPageMetadata({
   path: "/dashboard/listings/new",
-  title: "Create a Listing in Plain English | AskHero",
-  description: "Build an AskHero listing draft from plain English property details, photos, and videos.",
+  title: "Create a Listing | AskHero",
+  description: "Import a listing from any URL or build one in plain English.",
 });
 
 export default async function NewListingPage() {
@@ -31,7 +31,8 @@ export default async function NewListingPage() {
           <div className="rounded-2xl border border-gold-300/25 bg-gold-400/8 p-6">
             <h1 className="text-2xl font-bold">To create a listing, please join as a seller or realtor.</h1>
             <p className="mt-3 max-w-2xl text-white/66">
-              Your current AskHero account is set up for buyer search. Create a seller or realtor account to use Hero Listing Builder.
+              Your current AskHero account is set up for buyer search. Create a seller or realtor account to use Hero
+              Listing Builder.
             </p>
             <Button asChild className="mt-5">
               <Link href="/">Join as a Realtor</Link>
@@ -39,16 +40,17 @@ export default async function NewListingPage() {
           </div>
         ) : (
           <>
-        <div className="mb-10 max-w-4xl">
-          <p className="text-sm font-bold uppercase tracking-[0.18em] text-gold-300">Hero Listing Builder</p>
-          <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-normal text-white sm:text-5xl lg:text-6xl">
-            Create a listing in plain English.
-          </h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-white/66 sm:text-xl">
-            Tell Hero the address, price, property details, and highlights. Hero will turn it into a complete listing draft.
-          </p>
-        </div>
-        <HeroListingBuilder />
+            <div className="mb-10 max-w-4xl">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-gold-300">Hero Listing Builder</p>
+              <h1 className="mt-4 text-4xl font-extrabold leading-tight tracking-normal text-white sm:text-5xl lg:text-6xl">
+                Create a listing.
+              </h1>
+              <p className="mt-5 max-w-3xl text-lg leading-8 text-white/66 sm:text-xl">
+                Import directly from any listing URL, or describe the property in plain English and Hero will build the
+                draft for you.
+              </p>
+            </div>
+            <NewListingTabs />
           </>
         )}
       </section>

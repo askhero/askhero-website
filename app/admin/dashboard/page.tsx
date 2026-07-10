@@ -45,7 +45,7 @@ export default async function AdminDashboardPage() {
             <h1 className="text-3xl font-bold tracking-tight">Listings Dashboard</h1>
             <p className="mt-1 text-sm text-white/44">Approve or reject listings for the AskHero marketplace.</p>
           </div>
-          <form action="/api/admin/logout" method="POST">
+          <form action="/api/admin/signout" method="POST">
             <button
               type="submit"
               className="rounded-lg border border-white/15 bg-white/[0.05] px-4 py-2 text-sm font-medium text-white/70 transition hover:bg-white/10"
